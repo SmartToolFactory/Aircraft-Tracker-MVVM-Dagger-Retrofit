@@ -1,0 +1,106 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+
+apply plugin: 'kotlin-kapt'
+
+android {
+
+    compileSdkVersion 28
+
+    defaultConfig {
+        applicationId "com.smarttoolfactory.opensky"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+
+        debug {
+            minifyEnabled false
+            useProguard false
+        }
+        release {
+            // Enables code shrinking, obfuscation, and optimization for only
+            // your project's release build type.
+            minifyEnabled true
+
+            // Enables resource shrinking, which is performed by the
+            // Android Gradle plugin.
+            shrinkResources true
+
+            // Includes the default ProGuard rules files that are packaged with
+            // the Android Gradle plugin. To learn more, go to the section about
+            // R8 configuration files.
+            proguardFiles getDefaultProguardFile(
+                    'proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+        }
+
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation 'com.google.android.material:material:1.0.0'
+
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:' + rootProject.retrofitVersion
+    implementation 'com.squareup.retrofit2:converter-gson:' + rootProject.retrofitVersion
+
+    // Gson
+    implementation 'com.google.code.gson:gson:' + rootProject.gsonVersion
+
+    // Location
+    implementation 'com.google.android.gms:play-services-location:' + rootProject.locationVersion
+
+    // Map
+    implementation 'com.google.android.gms:play-services-maps:' + rootProject.mapsVersion
+
+    // ViewModel and LiveData
+    implementation 'android.arch.lifecycle:extensions:' + rootProject.archLifecycleVersion
+    annotationProcessor 'android.arch.lifecycle:compiler:' + rootProject.archLifecycleVersion
+
+    // Room
+    implementation 'android.arch.persistence.room:runtime:' + rootProject.roomVersion
+    annotationProcessor 'android.arch.persistence.room:compiler:' + rootProject.roomVersion
+
+    // Dagger Core dependencies
+    annotationProcessor 'com.google.dagger:dagger-compiler:' + rootProject.daggerVersion
+    implementation 'com.google.dagger:dagger:' + rootProject.daggerVersion
+    kapt 'com.google.dagger:dagger-compiler:' + rootProject.daggerVersion
+    kapt 'com.google.dagger:dagger-android-processor:' + rootProject.daggerVersion
+
+
+    // Dagger Android dependencies
+    annotationProcessor 'com.google.dagger:dagger-android-processor:' + rootProject.daggerVersion
+    implementation 'com.google.dagger:dagger-android-support:' + rootProject.daggerVersion
+
+    // RxJava
+    implementation 'io.reactivex.rxjava2:rxjava:' + rootProject.rxjavaVersion
+
+    // RxAndroid
+    implementation 'io.reactivex.rxjava2:rxandroid:' + rootProject.rxandroidVersion
+
+    // Leak Canary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
+    // Optional, if you use support library fragments:
+    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
